@@ -1,0 +1,75 @@
+	////////////////////////////////////////////////////////////////////////////////////////
+	// Get nist material manager
+  G4NistManager* nist = G4NistManager::Instance();
+  // Option to switch on/off checking of volumes overlaps
+
+  G4Material* mat_vacuum = nist->FindOrBuildMaterial("G4_Galactic");//
+  G4Material* mat_air = nist->FindOrBuildMaterial("G4_AIR");
+  G4Material* mat_GeNat = nist->FindOrBuildMaterial("G4_Ge");
+	G4Material* mat_Cu = nist->FindOrBuildMaterial("G4_Cu");
+	G4Material* mat_Pb = nist->FindOrBuildMaterial("G4_Pb");
+	G4Material* mat_N = nist->FindOrBuildMaterial("G4_N");
+	G4Material* mat_Ar = nist->FindOrBuildMaterial("G4_Ar");
+	G4Material* mat_Water = nist->FindOrBuildMaterial("G4_WATER");
+  G4Material* mat_Silicon = nist->FindOrBuildMaterial("G4_Si");
+  G4Material* mat_Oxygen = nist->FindOrBuildMaterial("G4_O");
+  G4Material* mat_Uranium = nist->FindOrBuildMaterial("G4_U");
+  G4Material* mat_Thorium = nist->FindOrBuildMaterial("G4_Th");
+  G4Material* mat_Potassium = nist->FindOrBuildMaterial("G4_K");
+
+
+  G4Material* mat_Rock= new G4Material("Rock", 2.86 * g / cm3, 5);
+  G4double sum_minors = 0.22/1000000. + 0.33/1000000. + 0.96/100.;
+  mat_Rock->AddMaterial(mat_Silicon, 1./3.*(1-sum_minors));
+  mat_Rock->AddMaterial(mat_Oxygen, 2./3.*(1-sum_minors));
+  mat_Rock->AddMaterial(mat_Uranium, 0.22/1000000.);
+  mat_Rock->AddMaterial(mat_Thorium, 0.33/1000000.);
+  mat_Rock->AddMaterial(mat_Potassium, 0.96/100.);
+
+
+	G4Isotope* iso_Ge70 = new G4Isotope("Germanium70", 32, 70, 69.9243 * g / mole);
+  G4Isotope* iso_Ge72 = new G4Isotope("Germanium72", 32, 72, 71.9221 * g / mole);
+  G4Isotope* iso_Ge73 = new G4Isotope("Germanium73", 32, 73, 72.9235 * g / mole);
+  G4Isotope* iso_Ge74 = new G4Isotope("Germanium74", 32, 74, 73.9212 * g / mole);
+  G4Isotope* iso_Ge76 = new G4Isotope("Germanium76", 32, 76, 75.9214 * g / mole);
+
+  G4Element* ele_Ge = new G4Element("Germanium", "Ge", 2);
+  ele_Ge->AddIsotope(iso_Ge74, 0.14);
+	ele_Ge->AddIsotope(iso_Ge76, 0.86);
+
+  G4Material* mat_GeEnr = new G4Material("GermaniumEnriched", 5.323*g/cm3, 1);
+  mat_GeEnr->AddElement(ele_Ge, 1);
+
+
+
+
+	G4Material* mat_NCold = new G4Material("NitrogenCold",0.001251*293/80.*g/cm3, 1, kStateGas, 80.0*kelvin, 1.0*bar);
+	mat_NCold->AddMaterial(mat_N,1);
+	G4Material* mat_NLiq = new G4Material("NitrogenLiquid", 0.808*g/cm3, 1, kStateLiquid, 80.0*kelvin, 1.0*bar);
+	mat_NLiq->AddMaterial(mat_N,1);
+
+	G4Material* mat_ArCold = new G4Material("ArgonCold",0.001784*293/87.*g/cm3, 1, kStateGas, 87.0*kelvin, 1.0*bar);
+	mat_ArCold->AddMaterial(mat_Ar,1);
+	G4Material* mat_ArLiq = new G4Material("ArgonLiquid", 1.3954*g/cm3, 1, kStateLiquid, 87.0*kelvin, 1.0*bar);
+	mat_ArLiq->AddMaterial(mat_Ar,1);
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////
+	G4Material* mat_Detector = mat_GeEnr;
+	G4Material* mat_FillGas;
+
+	//Vacuum ArgonLiquid ArgonGas NitrogenLiquid NitrogenGas
+	if (innerVessel_FillMaterial.contains("NitrogenGas")) mat_FillGas	= mat_NCold;
+	else if (innerVessel_FillMaterial.contains("NitrogenLiquid")) mat_FillGas	= mat_NLiq;
+	else if (innerVessel_FillMaterial.contains("ArgonGas")) mat_FillGas	= mat_ArCold;
+	else if (innerVessel_FillMaterial.contains("ArgonLiquid")) mat_FillGas	= mat_ArLiq;
+	else mat_FillGas = mat_vacuum;
+
+
+	G4cout << "----------------------------" << G4endl;
+	G4cout << "Material in inner vessel is " << mat_FillGas->GetName() << G4endl;
+	G4cout << "Temperature: "                << mat_FillGas->GetTemperature() << G4endl;
+	G4cout << "State: "                      << mat_FillGas->GetState() << G4endl;
+	G4cout << "Density: "                    << mat_FillGas->GetDensity() / (g/cm3) << " g/cm3 " << G4endl;
+	G4cout << "----------------------------" << G4endl;

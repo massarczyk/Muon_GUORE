@@ -1,0 +1,32 @@
+	//liquid Argon
+	G4double liquidArgon_Z[6] = {3.95*m,1.00001*m,1*m,-1*m,-1.00001*m,-3.95*m};
+	G4double liquidArgon_RMin[6] = {0*m,0*m,1.00001*m,1.00001*m,0*m,0*m};
+	G4double liquidArgon_RMax[6] = {3.95*m,3.95*m,3.95*m,3.95*m,3.95*m,3.95*m};
+
+	G4Polycone* solid_liquidArgon = new G4Polycone("sol_liquidArgon", 0, 2*M_PI,6,liquidArgon_Z,liquidArgon_RMin,liquidArgon_RMax);
+	G4LogicalVolume* logical_liquidArgon = new G4LogicalVolume(solid_liquidArgon, mat_ArLiq, "log_liquidArgon" );
+	logical_liquidArgon->SetVisAttributes ( new G4VisAttributes(G4Colour(0.8, 0.0, 0.8,0.1) ));
+	G4VPhysicalVolume* physical_liquidArgon =
+		new G4PVPlacement(0,G4ThreeVector(0,0,0),logical_liquidArgon,"phy_liquidArgon",logical_World,false,0,checkOverlaps);
+
+	//outer Vessel
+	G4double outerVessel_Z[6] = {4*m,3.95001*m,3.95*m,-3.95*m,-3.95001*m,-4*m};
+	G4double outerVessel_RMin[6] = {0*m,0*m,3.95*m,3.95*m,0*m,0*m};
+	G4double outerVessel_RMax[6] = {4*m,4*m,4*m,4*m,4*m,4*m};
+
+	G4Polycone* solid_outerVessel = new G4Polycone("sol_outerVessel", 0, 2*M_PI,6,outerVessel_Z,outerVessel_RMin,outerVessel_RMax);
+	G4LogicalVolume* logical_outerVessel = new G4LogicalVolume(solid_outerVessel, mat_Cu, "log_outerVessel" );
+	logical_outerVessel->SetVisAttributes ( new G4VisAttributes(G4Colour(0.62, 0.3, 0.2,0.7) ));
+	G4VPhysicalVolume* physical_outerVessel =
+		new G4PVPlacement(0,G4ThreeVector(0,0,0),logical_outerVessel,"phy_outerVessel",logical_World,false,0,checkOverlaps);
+
+  //waterShield
+	G4double waterShield_Z[6] = {6.5*m,4.00001*m,4*m,-4*m,-4.00001*m,-6.5*m};
+	G4double waterShield_RMin[6] = {0*m,0*m,4.00001*m,4.00001*m,0*m,0*m};
+	G4double waterShield_RMax[6] = {6.5*m,6.5*m,6.5*m,6.5*m,6.5*m,6.5*m};
+
+	G4Polycone* solid_waterShield = new G4Polycone("sol_waterShield", 0, 2*M_PI,6,waterShield_Z,waterShield_RMin,waterShield_RMax);
+	G4LogicalVolume* logical_waterShield = new G4LogicalVolume(solid_waterShield, mat_Water, "log_waterShield" );
+	logical_waterShield->SetVisAttributes ( new G4VisAttributes(G4Colour(0.3, 0.6, 1.0,0.2) ));
+	G4VPhysicalVolume* physical_waterShield =
+		new G4PVPlacement(0,G4ThreeVector(0,0,0),logical_waterShield,"phy_waterShield",logical_World,false,0,checkOverlaps);
