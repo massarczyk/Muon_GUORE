@@ -49,6 +49,7 @@
 #include "G4Colour.hh"
 
 #include "G4Material.hh"
+#include "G4UIcommand.hh"
 
 #ifndef M_PI
 #define M_PI    3.14159265358979323846f
