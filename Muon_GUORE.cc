@@ -1,4 +1,9 @@
+///////////////////////////////////////////////////////////////////////////
+// This code implementation is the intellectual property of the
+// ton-scale 0vbb in Germanium collaboration. It is based on Geant4, an
+// intellectual property of the RD44 GEANT4 collaboration.
 //
+// *********************
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -23,11 +28,16 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-//
-//
-//
-//
-
+// Neither the authors of this software system, nor their employing
+// institutes, nor the agencies providing financial support for this
+// work make any representation or warranty, express or implied,
+// regarding this software system or assume any liability for its use.
+// By copying, distributing or modifying the Program (or any work based
+// on the Program) you indicate your acceptance of this statement,
+// and all its terms.
+///////////////////////////////////////////////////////////////////////////
+/// \file Muon_GUORE.cc
+/// \brief Main program of the  example
 
 #include "DetectorConstruction.hh"
 #include "PrimaryGeneratorAction.hh"
