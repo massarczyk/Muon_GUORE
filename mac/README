@@ -11,7 +11,7 @@ After the main MUON_GUORE executable is ran, it should output a .root file with 
 
 >) root -x chaining.root
 
-The eventbuilder.C script takes all.root as an input file, and outputs the file builtevents.root. The built events have less information than all.root, but the entries are organized into 'events'. An event is every entry in the same detector, from the same primary particle (and its secondaries), bunched into 20us increments.
+The eventbuilder.C script takes all.root as an input file, and outputs the file builtevents.root. The built events have less information than all.root, but the entries are organized into 'events'. An event is every entry in the same detector, from the same primary particle (and its secondaries), bunched into 20us increments. In this version, eventbuilder.C is NOT working for .root files chained together by chaining.C, and this will be fixed in a later version.
 
 >) root -x eventbuilder.C
 
