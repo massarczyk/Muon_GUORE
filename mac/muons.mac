@@ -1,0 +1,27 @@
+#generates monoenergetic muons with 300GeV kinetic energy, aimed straight downward at the detectors
+
+
+/GUORE/generator/select GPS
+
+/gps/particle mu-
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/centre 0 0 22.5 m
+/gps/pos/radius 1 m
+/gps/direction 0 0 -1
+/gps/ene/mono 300000.00 MeV
+
+#/vis/open HepRepFile
+#/vis/drawVolume
+#/vis/viewer/flush
+#/vis/scene/add/trajectories
+#/vis/filtering/trajectories/create/particleFilter
+#/vis/filtering/trajectories/particleFilter-0/add gamma
+#/vis/filtering/trajectories/particleFilter-0/add mu-
+#/vis/filtering/trajectories/particleFilter-0/active true
+#/vis/scene/add/hits
+#/vis/scene/endOfEventAction accumulate
+
+
+/run/beamOn 100
+

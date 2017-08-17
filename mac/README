@@ -1,0 +1,20 @@
+A brief description of each of the macros in this folder, input file names, and how they interact
+
+After using 'make' to compile Muon_GUORE.cc into an executable, the executable requires two inputs: a macro, and a number. The macro should handle primary particle generation, and the number will act as the seed for the simulation's random number generator. Right now, it's the only part of this process that requires user entries. An example set of input to make this happen would be:
+
+>) make
+>) ./Muon_GUORE muons.mac 309841
+
+muons.mac generates high energy muons, and Co60.mac generates stationary Cobalt 60 nuclei. For more information, check out those macros yourself. To better understand what's in the simulation, you can read the .cc file.
+
+After the main MUON_GUORE executable is ran, it should output a .root file with the name 'output#####.root', where the #s are equal to the input seed. The macro 'chaining.C' will take every output#####.root file in the current directory and merge them into a single file with a single tree. This file will be named 'all.root'
+
+>) root -x chaining.root
+
+The eventbuilder.C script takes all.root as an input file, and outputs the file builtevents.root. The built events have less information than all.root, but the entries are organized into 'events'. An event is every entry in the same detector, from the same primary particle (and its secondaries), bunched into 20us increments.
+
+>) root -x eventbuilder.C
+
+Finally, builtevents.root is taken into summing.C, a simple program which sums the total energy in each 'event' and fills these totals into a histogram. These so-called 'reconstructed hits' are representative of the total energy deposition in a detector during a 20us window. summing.C doesn't currently have an output file.
+
+>) root -x summing.C

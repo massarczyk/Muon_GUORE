@@ -1,0 +1,26 @@
+#generates cobalt 60 nuclei, seeded randomly throughout the inner liquid argon volume
+
+/GUORE/generator/select GPS
+
+/gps/ion 27 60 27
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/centre 0 0 0 m
+/gps/pos/radius 0.95 m
+/gps/ang/type iso
+/gps/ene/mono 0 MeV
+
+#/vis/open HepRepFile
+#/vis/drawVolume
+#/vis/viewer/flush
+#/vis/scene/add/trajectories
+#/vis/filtering/trajectories/create/particleFilter
+#/vis/filtering/trajectories/particleFilter-0/add gamma
+#/vis/filtering/trajectories/particleFilter-0/add mu-
+#/vis/filtering/trajectories/particleFilter-0/active true
+#/vis/scene/add/hits
+#/vis/scene/endOfEventAction accumulate
+
+
+/run/beamOn 30000
+
